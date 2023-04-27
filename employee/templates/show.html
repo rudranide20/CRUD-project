@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Record</title>
+    <style>
+        thead{color: blue;}
+        tbody{color: red;}
+        table, td{border: 1px solid black;}
+        body{
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <caption><b>Employee Details</b></caption>
+        <thead>
+            <tr>
+                <td>Employee Id</td>
+                <td>Employee Name</td>
+                <td>Employee Email</td>
+                <td>Employee Contact</td>
+                <td>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in employee %}
+            <tr>
+                <td>{{emp.eid}}</td>
+                <td>{{emp.ename}}</td>
+                <td>{{emp.email}}</td>
+                <td>{{emp.econtact}}</td>
+                <td>
+                    <a href="{% url 'update' emp.id %}">Edit</a>
+                    <form action="{% url 'delete' emp.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                    <input type="submit" class="btn btn-danger btn-sm" value="delete">
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <a href="{% url 'emp'  %}">Create Data</a>
+    
+</body>
+</html>
